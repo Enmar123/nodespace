@@ -6,7 +6,6 @@
 class Node{
 public:
     Node(std::list<Node> connections);
-    ~Node();
     void update();
     void addLink(Node &node);
     void rmvLink(Node &node);

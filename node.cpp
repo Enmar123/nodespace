@@ -1,4 +1,9 @@
 #include "node.hpp"
+//#include <gtest/gtest.h>
+
+//TEST(testing_gtest, assertion_check){
+//    ASSERT_TRUE( 1 == 1 ); 
+//}
 
 Node::Node(std::list<Node> connections){
     for(Node &node : connections){
