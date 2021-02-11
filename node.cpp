@@ -4,13 +4,6 @@
 Node::Node(){
 }
 
-// Construct a node with connections
-Node::Node(std::list<Node> connections){
-    for(Node &node : connections){
-        addLink(node);
-    }
-}
-
 // Key update rule for the univese
 void Node::update(){
     // if node is stable do nothing
@@ -18,41 +11,30 @@ void Node::update(){
         return;
     }
     // if node is not stable, change it somehow
-    for(Node &neighbor : connections){
-        for (Node &neighbor2: neighbor.connections){
-            if( &neighbor2 != this){
-                // Steal a connection
-                if(connections.size() < neighbor2.connections.size()){
-                    neighbor.rmvLink(neighbor2);
-                    addLink(neighbor2);
-                    update_neighbors();
-                }
-                else if(connections.size() == neighbor2.connections.size()){
-                    //do nothing
-                }
-                // Donate a connection???
-                else if(connections.size() > neighbor2.connections.size()){
-                    // might be alreade accounted for... do nothign for now
-                } 
-
+    for(auto neighbor : neighbors){
+        for (auto neighbor2 : neighbor->neighbors){
+            if(this->neighbors.size() < neighbor2->neighbors.size()){
+                addLink(neighbor2);
+                neighbor->rmvLink(neighbor2);
+                //update_neighbors();
+                return;
+            // Do nothing for other cases for now
             }
         }
     }
-
-        
 }
 
 // Goes to neighbors and runs update
 void Node::update_neighbors(){
-    for(Node &neighbor : connections){
-        neighbor.update();
+    for(auto &neighbor : neighbors){
+        neighbor->update();
     }
 }
 
 // Checks id the node wants to update
 bool Node::chk_ifStable(){
-    for(Node &neighbor : connections){
-        if(neighbor.connections.size() != connections.size()){
+    for(auto &neighbor : neighbors){
+        if(neighbor->neighbors.size() != this->neighbors.size()){
             return false;
         }
     }
@@ -61,22 +43,22 @@ bool Node::chk_ifStable(){
 
 
 // Adds a one-way link to the input node
-void Node::add_connection(Node &node){
-    connections.push_back(node);
+void Node::add_connection(Node *node){
+    neighbors.push_back(node);
 }
 
 // Adds bi-directional link to and from input node
-void Node::addLink(Node &node){
+void Node::addLink(Node* node){
     add_connection(node);
-    node.add_connection(*this);
+    node->add_connection(this);
 }
 
-// Removes a one-way link to the input connections
-void Node::rmv_connection(Node &node){
-    std::list<Node>::iterator it = connections.begin();
-    for(Node &current_node : connections){
-        if(&current_node == &node){
-            connections.erase(it);
+// Removes a one-way link to the input neighbors
+void Node::rmv_connection(Node *node){
+    std::list<Node*>::iterator it = neighbors.begin();
+    for(auto &current_node : neighbors){
+        if(current_node == node){
+            neighbors.erase(it);
             return;
         }
         it++;
@@ -84,7 +66,7 @@ void Node::rmv_connection(Node &node){
 }
 
 // Removes bi-directional link to and from input node
-void Node::rmvLink(Node &node){
-    node.rmv_connection(*this);
+void Node::rmvLink(Node* node){
+    node->rmv_connection(this);
     rmv_connection(node);
 }
