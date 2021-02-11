@@ -2,18 +2,19 @@
 
 #include <iostream>
 #include <list>
+#include <memory>
 
 class Node{
 public:
+    Node();
     Node(std::list<Node> connections);
     void update();
     void addLink(Node &node);
     void rmvLink(Node &node);
     
-
-private:   
     std::list<Node> connections;
 
+private:   
     bool chk_ifStable();
     bool chk_forNode(Node &node);
     void rmv_connection(Node &node);

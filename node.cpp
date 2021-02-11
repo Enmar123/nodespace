@@ -1,6 +1,10 @@
 #include "node.hpp"
 
+// Default node constructor starts with empty node
+Node::Node(){
+}
 
+// Construct a node with connections
 Node::Node(std::list<Node> connections){
     for(Node &node : connections){
         addLink(node);
@@ -38,12 +42,14 @@ void Node::update(){
         
 }
 
+// Goes to neighbors and runs update
 void Node::update_neighbors(){
     for(Node &neighbor : connections){
         neighbor.update();
     }
 }
 
+// Checks id the node wants to update
 bool Node::chk_ifStable(){
     for(Node &neighbor : connections){
         if(neighbor.connections.size() != connections.size()){
