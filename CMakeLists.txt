@@ -4,6 +4,6 @@ project(NodeSpaceProject VERSION 0.1.0)
 
 include_directories(googletest-release-1.10.0)
 
-add_executable(nodespace main.cpp node.cpp)
+add_executable(nodespace main.cpp node.cpp node_tests.cpp)
 
 target_link_libraries(nodespace PRIVATE gtest pthread)
