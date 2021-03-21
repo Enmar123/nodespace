@@ -31,7 +31,7 @@ void Node::update_neighbors(){
     }
 }
 
-// Checks id the node wants to update
+// Checks if the node wants to update
 bool Node::chk_ifStable(){
     for(auto &neighbor : neighbors){
         if(neighbor->neighbors.size() != this->neighbors.size()){

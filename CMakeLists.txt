@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(NodeSpaceProject VERSION 0.1.0)
 
+add_library (nodespace node.cpp)
 
-include_directories(googletest-release-1.10.0)
+add_executable(nodespace_unittests nodespace_unittests.cpp)
 
-add_executable(nodespace main.cpp node.cpp node_tests.cpp)
-
-target_link_libraries(nodespace PRIVATE gtest pthread)
+target_link_libraries(nodespace_unittests PRIVATE
+    # External
+    gtest 
+    pthread
+    # Internal
+    nodespace
+    )
