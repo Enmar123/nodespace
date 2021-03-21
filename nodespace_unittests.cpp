@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 // My libs
 #include "node_tests.hpp"
+#include "space_tests.hpp"
 
 int main(int argc, char** argv) {
 

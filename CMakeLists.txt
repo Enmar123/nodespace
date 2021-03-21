@@ -14,4 +14,5 @@ target_link_libraries(nodespace_unittests PRIVATE
     pthread
     # Internal
     node
+    space
     )

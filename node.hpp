@@ -7,7 +7,7 @@
 class Node{
 public:
     Node();
-    void update();
+    bool update();
     void addLink(Node* node);
     void rmvLink(Node* node);
     

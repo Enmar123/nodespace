@@ -22,6 +22,7 @@ bool Node::update(){
             }
         }
     }
+    return false;
 }
 
 // Goes to neighbors and runs update

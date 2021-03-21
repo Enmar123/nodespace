@@ -9,10 +9,15 @@ class Space{
 public:
     Space();
     void update();
-    void setStart(Node* node);
+    void setUpdateStart(Node* node);
+    void addNode(Node* node);
     void setNodes(std::list<Node*> &nodes);
+
+    Node* getNextUpdateNode();
+
+    std::list<Node*> nodes;
+    std::list<Node*> node_update_queue;
     
 private:   
-    std::list<Node*> nodes;
-    std::list<Node*> node_update_order;
+    
 };

@@ -105,6 +105,15 @@ TEST_F(NodeTestSimple, node_has_the_correct_neighbors){
     EXPECT_EQ( *(++testnode3->neighbors.begin()), testnode4);
 }
 
+TEST_F( NodeTestSimple, update_for_stable_node_returns_false){
+    testnode1->addLink(testnode2);
+    testnode2->addLink(testnode3);
+    testnode3->addLink(testnode4);
+    testnode4->addLink(testnode5);
+    
+    EXPECT_EQ( testnode3->update(), false);
+}
+
 TEST_F( NodeTestSimple, stable_node_will_not_update){
     testnode1->addLink(testnode2);
     testnode2->addLink(testnode3);
@@ -117,6 +126,14 @@ TEST_F( NodeTestSimple, stable_node_will_not_update){
     EXPECT_EQ(*(++testnode3->neighbors.begin()), testnode4);
 }
 
+TEST_F( NodeTestSimple, update_for_unstable_node_returns_true){
+    testnode1->addLink(testnode2);
+    testnode2->addLink(testnode3);
+    testnode3->addLink(testnode4);
+    testnode4->addLink(testnode5);
+    
+    EXPECT_EQ( testnode1->update(), true);
+}
 
 TEST_F( NodeTestSimple, unstable_node_will_update){
     testnode1->addLink(testnode2);
