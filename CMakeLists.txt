@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(NodeSpaceProject VERSION 0.1.0)
 
-add_library (nodespace node.cpp)
+add_library(node node.cpp)
+
+add_library(space space.cpp)
+target_link_libraries(space node)
 
 add_executable(nodespace_unittests nodespace_unittests.cpp)
 
@@ -10,5 +13,5 @@ target_link_libraries(nodespace_unittests PRIVATE
     gtest 
     pthread
     # Internal
-    nodespace
+    node
     )

@@ -5,10 +5,10 @@ Node::Node(){
 }
 
 // Key update rule for the univese
-void Node::update(){
+bool Node::update(){
     // if node is stable do nothing
     if(chk_ifStable()){
-        return;
+        return false;
     }
     // if node is not stable, change it somehow
     for(auto neighbor : neighbors){
@@ -17,7 +17,7 @@ void Node::update(){
                 addLink(neighbor2);
                 neighbor->rmvLink(neighbor2);
                 //update_neighbors();
-                return;
+                return true;
             // Do nothing for other cases for now
             }
         }
